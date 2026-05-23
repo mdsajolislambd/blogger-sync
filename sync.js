@@ -55,7 +55,7 @@ function extractQuestion(entry) {
     options: JSON.stringify(options),
     correct_answer: correct,
     explanation,
-    category: entry.category?.[0]?.term || 'general'
+    category: entry.category ? entry.category.map(c => c.term).join(', ') : 'general'
   };
 }
 
