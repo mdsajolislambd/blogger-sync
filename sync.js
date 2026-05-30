@@ -38,7 +38,7 @@ function extractQuestion(entry) {
   const mcq = $('.mcq-item').first();
   if (!mcq.length) return null;
 
-  const question = $('.mcq-question').first().text().trim() || entry.title.$t;
+  const question = entry.title.$t || '';
   const options = [];
   $('.mcq-option').each((i, el) => {
     options.push($(el).text().trim().replace(/^[A-D]\)\s*/, ''));
