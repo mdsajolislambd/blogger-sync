@@ -38,7 +38,10 @@ function extractQuestion(entry) {
   const mcq = $('.mcq-item').first();
   if (!mcq.length) return null;
 
-  const question = entry.title.$t || '';
+  // ⬇️ Now we capture both the post title and the MCQ question text
+  const postTitle = entry.title.$t || '';
+  const mcqQuestionText = $('.mcq-question').first().text().trim() || '';
+
   const options = [];
   $('.mcq-option').each((i, el) => {
     options.push($(el).text().trim().replace(/^[A-D]\)\s*/, ''));
@@ -51,7 +54,8 @@ function extractQuestion(entry) {
   const postId = entry.id.$t.match(/post-(\d+)/)?.[1] || '';
   return {
     post_id: postId,
-    title: question,
+    title: postTitle,               // ← blog post title
+    mcq_question: mcqQuestionText,  // ← the .mcq-question text
     options: JSON.stringify(options),
     correct_answer: correct,
     explanation,
